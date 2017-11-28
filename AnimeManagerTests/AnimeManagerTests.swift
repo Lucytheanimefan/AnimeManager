@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import os.log
 @testable import AnimeManager
 
 class AnimeManagerTests: XCTestCase {
@@ -19,6 +20,19 @@ class AnimeManagerTests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
+    }
+    
+    func testMAL(){
+        let expect = expectation(description: "MAL List")
+        MyAnimeList.sharedInstance.getAnimeList(username: "Silent_Muse", completion: { (data) in
+            expect.fulfill()
+        }) { (error) in
+            print(error)
+            expect.fulfill()
+        }
+        waitForExpectations(timeout: 100) { (error) in
+            os_log("Failed HTTP Request with error: %@", error.debugDescription)
+        }
     }
     
     func testExample() {

@@ -6,10 +6,27 @@
 	objectVersion = 48;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		7C66B1F41FCDF3590016FACD /* All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 7C66B1F51FCDF3590016FACD /* Build configuration list for PBXAggregateTarget "All" */;
+			buildPhases = (
+			);
+			dependencies = (
+				7C66B1F91FCDF3630016FACD /* PBXTargetDependency */,
+				7C66B1FB1FCDF3630016FACD /* PBXTargetDependency */,
+			);
+			name = All;
+			productName = All;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		7C66B1E01FCDF0C90016FACD /* AnimeManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C66B1D61FCDF0C80016FACD /* AnimeManager.framework */; };
 		7C66B1E51FCDF0C90016FACD /* AnimeManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66B1E41FCDF0C90016FACD /* AnimeManagerTests.swift */; };
 		7C66B1E71FCDF0C90016FACD /* AnimeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C66B1D91FCDF0C80016FACD /* AnimeManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7C66B1F11FCDF1010016FACD /* MyAnimeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66B1F01FCDF1010016FACD /* MyAnimeList.swift */; };
+		7C66B1F31FCDF1EC0016FACD /* Requester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66B1F21FCDF1EC0016FACD /* Requester.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -20,6 +37,20 @@
 			remoteGlobalIDString = 7C66B1D51FCDF0C80016FACD;
 			remoteInfo = AnimeManager;
 		};
+		7C66B1F81FCDF3630016FACD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7C66B1CD1FCDF0C80016FACD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7C66B1D51FCDF0C80016FACD;
+			remoteInfo = AnimeManager;
+		};
+		7C66B1FA1FCDF3630016FACD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7C66B1CD1FCDF0C80016FACD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7C66B1DE1FCDF0C90016FACD;
+			remoteInfo = AnimeManagerTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +60,8 @@
 		7C66B1DF1FCDF0C90016FACD /* AnimeManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnimeManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C66B1E41FCDF0C90016FACD /* AnimeManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeManagerTests.swift; sourceTree = "<group>"; };
 		7C66B1E61FCDF0C90016FACD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7C66B1F01FCDF1010016FACD /* MyAnimeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAnimeList.swift; sourceTree = "<group>"; };
+		7C66B1F21FCDF1EC0016FACD /* Requester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requester.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +106,8 @@
 			children = (
 				7C66B1D91FCDF0C80016FACD /* AnimeManager.h */,
 				7C66B1DA1FCDF0C80016FACD /* Info.plist */,
+				7C66B1F01FCDF1010016FACD /* MyAnimeList.swift */,
+				7C66B1F21FCDF1EC0016FACD /* Requester.swift */,
 			);
 			path = AnimeManager;
 			sourceTree = "<group>";
@@ -148,9 +183,14 @@
 				TargetAttributes = {
 					7C66B1D51FCDF0C80016FACD = {
 						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
 					7C66B1DE1FCDF0C90016FACD = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+					7C66B1F41FCDF3590016FACD = {
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
 					};
@@ -170,6 +210,7 @@
 			targets = (
 				7C66B1D51FCDF0C80016FACD /* AnimeManager */,
 				7C66B1DE1FCDF0C90016FACD /* AnimeManagerTests */,
+				7C66B1F41FCDF3590016FACD /* All */,
 			);
 		};
 /* End PBXProject section */
@@ -196,6 +237,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C66B1F31FCDF1EC0016FACD /* Requester.swift in Sources */,
+				7C66B1F11FCDF1010016FACD /* MyAnimeList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +257,16 @@
 			isa = PBXTargetDependency;
 			target = 7C66B1D51FCDF0C80016FACD /* AnimeManager */;
 			targetProxy = 7C66B1E11FCDF0C90016FACD /* PBXContainerItemProxy */;
+		};
+		7C66B1F91FCDF3630016FACD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7C66B1D51FCDF0C80016FACD /* AnimeManager */;
+			targetProxy = 7C66B1F81FCDF3630016FACD /* PBXContainerItemProxy */;
+		};
+		7C66B1FB1FCDF3630016FACD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7C66B1DE1FCDF0C90016FACD /* AnimeManagerTests */;
+			targetProxy = 7C66B1FA1FCDF3630016FACD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -334,6 +387,7 @@
 		7C66B1EB1FCDF0C90016FACD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -347,6 +401,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lucy.AnimeManager;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -355,6 +410,7 @@
 		7C66B1EC1FCDF0C90016FACD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -376,6 +432,7 @@
 		7C66B1EE1FCDF0C90016FACD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 65ZN6CM2H7;
 				INFOPLIST_FILE = AnimeManagerTests/Info.plist;
@@ -390,6 +447,7 @@
 		7C66B1EF1FCDF0C90016FACD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 65ZN6CM2H7;
 				INFOPLIST_FILE = AnimeManagerTests/Info.plist;
@@ -398,6 +456,24 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7C66B1F61FCDF3590016FACD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 65ZN6CM2H7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7C66B1F71FCDF3590016FACD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 65ZN6CM2H7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -427,6 +503,15 @@
 			buildConfigurations = (
 				7C66B1EE1FCDF0C90016FACD /* Debug */,
 				7C66B1EF1FCDF0C90016FACD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7C66B1F51FCDF3590016FACD /* Build configuration list for PBXAggregateTarget "All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7C66B1F61FCDF3590016FACD /* Debug */,
+				7C66B1F71FCDF3590016FACD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
