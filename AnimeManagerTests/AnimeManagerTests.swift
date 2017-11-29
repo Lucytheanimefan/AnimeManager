@@ -62,20 +62,20 @@ class AnimeManagerTests: XCTestCase {
 //            os_log("Failed HTTP Request with error: %@", error.debugDescription)
 //        }
 //    }
-    
-    func testFunimationLogin(){
-        let expect = expectation(description: "Funi Auth")
-        let funi = Funimation.init()
-        funi.authenticate(username: "spothorse9.lucy@gmail.com", password: "", completion: {(data) in
-            
-            expect.fulfill()
-            }
-        )
-        
-        waitForExpectations(timeout: 20) { (error) in
-            os_log("Failed HTTP Request with error: %@", error.debugDescription)
-        }
-    }
+//    
+//    func testFunimationLogin(){
+//        let expect = expectation(description: "Funi Auth")
+//        let funi = Funimation.init()
+//        funi.authenticate(username: "spothorse9.lucy@gmail.com", password: "", completion: {(data) in
+//            
+//            expect.fulfill()
+//            }
+//        )
+//        
+//        waitForExpectations(timeout: 20) { (error) in
+//            os_log("Failed HTTP Request with error: %@", error.debugDescription)
+//        }
+//    }
     
     func testKitsu(){
         let expect = expectation(description: "Kitsu Auth")
