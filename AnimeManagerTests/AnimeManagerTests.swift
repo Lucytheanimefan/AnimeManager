@@ -77,6 +77,19 @@ class AnimeManagerTests: XCTestCase {
         }
     }
     
+    func testKitsu(){
+        let expect = expectation(description: "Kitsu Auth")
+        Kitsu().search(attribute: "text", value: "tokyo ghoul", completion: {(data) in
+            os_log("%@: Result: %@", self.description, data)
+            expect.fulfill()
+        })
+        
+        waitForExpectations(timeout: 20) { (error) in
+            os_log("Failed HTTP Request with error: %@", error.debugDescription)
+        }
+    }
+    
+    
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
