@@ -22,43 +22,57 @@ class AnimeManagerTests: XCTestCase {
         super.tearDown()
     }
     
-    func testMAL(){
-        let expect = expectation(description: "MAL List")
-        let aniList = MyAnimeList(username: "Silent_Muse", password: nil)
-        aniList.getAnimeList(status: .all, completion: { (data) in
-            expect.fulfill()
-        }) { (error) in
-            print(error)
-            //expect.fulfill()
-        }
-        waitForExpectations(timeout: 10) { (error) in
-            os_log("Failed HTTP Request with error: %@", error.debugDescription)
-        }
-    }
+//    func testMAL(){
+//        let expect = expectation(description: "MAL List")
+//        let aniList = MyAnimeList(username: "Silent_Muse", password: nil)
+//        aniList.getAnimeList(status: .all, completion: { (data) in
+//            expect.fulfill()
+//        }) { (error) in
+//            print(error)
+//            //expect.fulfill()
+//        }
+//        waitForExpectations(timeout: 10) { (error) in
+//            os_log("Failed HTTP Request with error: %@", error.debugDescription)
+//        }
+//    }
+//
+//    func testDroppedShows(){
+//        let expect = expectation(description: "MAL List")
+//        let aniList = MyAnimeList(username: "Silent_Muse", password: nil)
+//        aniList.getAnimeList(status: .dropped, completion: { (data) in
+//            expect.fulfill()
+//            print("DROPPED")
+//            //print(data)
+//        }) { (error) in
+//            print(error)
+//            //expect.fulfill()
+//        }
+//        waitForExpectations(timeout: 10) { (error) in
+//            os_log("Failed HTTP Request with error: %@", error.debugDescription)
+//        }
+//    }
     
-    func testDroppedShows(){
-        let expect = expectation(description: "MAL List")
-        let aniList = MyAnimeList(username: "Silent_Muse", password: nil)
-        aniList.getAnimeList(status: .dropped, completion: { (data) in
-            expect.fulfill()
-            print("DROPPED")
-            print(data)
-        }) { (error) in
-            print(error)
-            //expect.fulfill()
-        }
-        waitForExpectations(timeout: 10) { (error) in
-            os_log("Failed HTTP Request with error: %@", error.debugDescription)
-        }
-    }
+//    func testSearchMAL(){
+//        let expect = expectation(description: "MAL Search")
+//        let aniList = MyAnimeList(username: "Silent_Muse", password: "")
+//        aniList.searchMAL(query: "full metal") { (data) in
+//            expect.fulfill()
+//        }
+//        waitForExpectations(timeout: 10) { (error) in
+//            os_log("Failed HTTP Request with error: %@", error.debugDescription)
+//        }
+//    }
     
-    func testSearchMAL(){
-        let expect = expectation(description: "MAL List")
-        let aniList = MyAnimeList(username: "Silent_Muse", password: "")
-        aniList.searchMAL(query: "full metal") { (data) in
+    func testFunimationLogin(){
+        let expect = expectation(description: "Funi Auth")
+        let funi = Funimation.init()
+        funi.authenticate(username: "spothorse9.lucy@gmail.com", password: "", completion: {(data) in
+            
             expect.fulfill()
-        }
-        waitForExpectations(timeout: 10) { (error) in
+            }
+        )
+        
+        waitForExpectations(timeout: 20) { (error) in
             os_log("Failed HTTP Request with error: %@", error.debugDescription)
         }
     }
