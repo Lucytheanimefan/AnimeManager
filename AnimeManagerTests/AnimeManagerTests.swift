@@ -24,13 +24,30 @@ class AnimeManagerTests: XCTestCase {
     
     func testMAL(){
         let expect = expectation(description: "MAL List")
-        MyAnimeList.sharedInstance.getAnimeList(username: "Silent_Muse", completion: { (data) in
+        let aniList = MyAnimeList(username: "Silent_Muse", password: nil)
+        aniList.getAnimeList(status: .all, completion: { (data) in
             expect.fulfill()
         }) { (error) in
             print(error)
-            expect.fulfill()
+            //expect.fulfill()
         }
-        waitForExpectations(timeout: 100) { (error) in
+        waitForExpectations(timeout: 10) { (error) in
+            os_log("Failed HTTP Request with error: %@", error.debugDescription)
+        }
+    }
+    
+    func testDroppedShows(){
+        let expect = expectation(description: "MAL List")
+        let aniList = MyAnimeList(username: "Silent_Muse", password: nil)
+        aniList.getAnimeList(status: .dropped, completion: { (data) in
+            expect.fulfill()
+            print("DROPPED")
+            print(data)
+        }) { (error) in
+            print(error)
+            //expect.fulfill()
+        }
+        waitForExpectations(timeout: 10) { (error) in
             os_log("Failed HTTP Request with error: %@", error.debugDescription)
         }
     }

@@ -51,7 +51,7 @@ class Requester: NSObject {
         let task = session.dataTask(with: request, completionHandler: {data, response, error -> Void in
             
             #if DEBUG
-                os_log("%@: In HTTP request completion: %@, %@, %@", (data?.description)!, (response?.description)!, error.debugDescription)
+                //os_log("%@: In HTTP request completion: %@, %@, %@", (data?.description)!, (response?.description)!, error.debugDescription)
             #endif
             
             if (data != nil)
