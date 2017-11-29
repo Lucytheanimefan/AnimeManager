@@ -62,16 +62,16 @@ class AnimeManagerTests: XCTestCase {
 //            os_log("Failed HTTP Request with error: %@", error.debugDescription)
 //        }
 //    }
-//    
+//
 //    func testFunimationLogin(){
 //        let expect = expectation(description: "Funi Auth")
 //        let funi = Funimation.init()
 //        funi.authenticate(username: "spothorse9.lucy@gmail.com", password: "", completion: {(data) in
-//            
+//
 //            expect.fulfill()
 //            }
 //        )
-//        
+//
 //        waitForExpectations(timeout: 20) { (error) in
 //            os_log("Failed HTTP Request with error: %@", error.debugDescription)
 //        }
@@ -89,10 +89,16 @@ class AnimeManagerTests: XCTestCase {
         }
     }
     
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testCRLogin(){
+        let expect = expectation(description: "CR Auth")
+        CrunchyRoll().login(username: "lucy.7a11@gmail.com", password: "", completion: {(data) in
+            os_log("%@: Result: %@", self.description, data)
+            expect.fulfill()
+        })
+        
+        waitForExpectations(timeout: 10) { (error) in
+            os_log("Failed HTTP Request with error: %@", error.debugDescription)
+        }
     }
     
     func testPerformanceExample() {
