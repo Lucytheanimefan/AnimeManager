@@ -13,7 +13,7 @@ class Requester: NSObject {
     
     static let sharedInstance = Requester()
     
-    func makeHTTPRequest(method:String, url: String, body: [String: Any]?, completion:@escaping (_ result:[String:Any]) -> Void, errorHandler:@escaping (_ result:[String:Any]) -> Void) {
+    func makeHTTPRequest(method:String, url: String, body: [String: Any]?, completion:@escaping (_ result:Any) -> Void, errorHandler:@escaping (_ result:[String:Any]) -> Void) {
         #if DEBUG
             os_log("%@: Make Request: %@, %@", self.description, method, url)
         #endif
@@ -37,7 +37,7 @@ class Requester: NSObject {
         
     }
     
-    private func executeHTTPRequest(request: URLRequest, completion:@escaping (_ result:[String:Any]) -> Void, errorHandler:@escaping (_ result:[String:Any]) -> Void =  { error in
+    private func executeHTTPRequest(request: URLRequest, completion:@escaping (_ result:Any) -> Void, errorHandler:@escaping (_ result:[String:Any]) -> Void =  { error in
         #if DEBUG
             os_log("Execute HTTP request")
         #endif
@@ -57,26 +57,26 @@ class Requester: NSObject {
             if (data != nil)
             {
                 do{
-                    if let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String:Any]{
+                    if let json = try? JSONSerialization.jsonObject(with: data!, options: []){
                         completion(json)
                     }
                     else
                     {
-                        errorHandler(["error": "Failed with json serialization"])
+                        if let dataString = String(data:data!, encoding:.utf8)
+                        {
+                            completion(["string":dataString])
+                        }
+                        else
+                        {
+                            errorHandler(["error": "Failed with json serialization"])
+                        }
                     }
                 }
                 catch
                 {
                     os_log("%@: Error serializing json: %@, Trying as string.", self.description, error.localizedDescription)
-                    if let dataString = String(data:data!, encoding:.utf8)
-                    {
-                        completion(["string":dataString])
-                    }
-                    else
-                    {
-                        errorHandler(["error": "Could not format data as string"])
-                        os_log("%@: Could not format data as string", self.description)
-                    }
+                    
+                    errorHandler(["error": error.localizedDescription])
                 }
                 //completion(data!)
             }
