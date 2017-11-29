@@ -52,6 +52,17 @@ class AnimeManagerTests: XCTestCase {
         }
     }
     
+    func testSearchMAL(){
+        let expect = expectation(description: "MAL List")
+        let aniList = MyAnimeList(username: "Silent_Muse", password: "")
+        aniList.searchMAL(query: "full metal") { (data) in
+            expect.fulfill()
+        }
+        waitForExpectations(timeout: 10) { (error) in
+            os_log("Failed HTTP Request with error: %@", error.debugDescription)
+        }
+    }
+    
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.

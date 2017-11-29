@@ -13,7 +13,7 @@ class Requester: NSObject {
     
     static let sharedInstance = Requester()
     
-    func makeHTTPRequest(method:String, url: String, body: [String: Any]?, completion:@escaping (_ result:Any) -> Void, errorHandler:@escaping (_ result:[String:Any]) -> Void) {
+    func makeHTTPRequest(method:String, url: String, body: [String: Any]?, headers:[String:String]?, completion:@escaping (_ result:Any) -> Void, errorHandler:@escaping (_ result:[String:Any]) -> Void) {
         #if DEBUG
             os_log("%@: Make Request: %@, %@", self.description, method, url)
         #endif
@@ -23,6 +23,11 @@ class Requester: NSObject {
         
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        headers?.forEach({ (arg) in
+            let (key, value) = arg
+            request.addValue(key, forHTTPHeaderField: value)
+        })
         
         if (body != nil)
         {

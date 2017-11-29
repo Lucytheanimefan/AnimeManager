@@ -18,6 +18,15 @@ public class MyAnimeList: NSObject {
     var username:String!
     var password:String!
     
+    lazy var authHeader:String? = {
+        if (self.password != nil && self.username != nil)
+        {
+            let rawHeader = self.username + ":" + self.password
+            return rawHeader.toBase64()
+        }
+        return nil
+    }()
+    
     public enum Status : Int {
         case currentlyWatching = 1, completed, onHold, dropped, planToWatch, all
     }
@@ -35,24 +44,50 @@ public class MyAnimeList: NSObject {
     public func getAnimeList(status:Status, completion:@escaping (_ animeList:[[String:Any]]) -> Void, errorHandler:@escaping (_ error:[String:Any]) -> Void) -> Void
     {
         let url = MyAnimeList.baseURL + "animelist/" + self.username + "/load.json?status=" + String(status.rawValue)
-        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, completion: { (result) in
+        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, headers: nil, completion: { (result) in
             if let animeList = result as? [[String:Any]]{
                 completion(animeList)
             }
             else
             {
-                print(result)
                 errorHandler(["error":"Anime list not in correct format"])
-                //os_log("%@: Result: %@", self.description, result.description)
-                //completion(result)
             }
         }) { (error) -> Void in
             errorHandler(error)
         }
     }
     
-    public func getCurrentlyWatchingAnime(completion:@escaping (_ animeList:[[String:Any]]) -> Void, errorHandler:@escaping (_ error:[String:Any]) -> Void) -> Void
+    public func searchMAL(query:String, completion:@escaping (_ result:[String:Any]) -> Void)
     {
-        let url = MyAnimeList.baseURL + "animelist/" + self.username + "/load.json?status=1"
+        let url = MyAnimeList.baseURL + "api/anime/search.xml?q=" + query.replacingOccurrences(of: " ", with: "+")
+        
+        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, headers: ["Authorization":self.authHeader!], completion: { (result) in
+            if let searchResult = result as? [String:Any]{
+                completion(searchResult)
+            }
+            else
+            {
+                
+            }
+        }) { (error) -> Void in
+        
+        }
+        
+    }
+
+}
+
+extension String {
+    
+    func fromBase64() -> String? {
+        guard let data = Data(base64Encoded: self) else {
+            return nil
+        }
+        
+        return String(data: data, encoding: .utf8)
+    }
+    
+    func toBase64() -> String {
+        return Data(self.utf8).base64EncodedString()
     }
 }
