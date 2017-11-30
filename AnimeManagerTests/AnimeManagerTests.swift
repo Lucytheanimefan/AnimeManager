@@ -103,8 +103,8 @@ class AnimeManagerTests: XCTestCase {
     
     func testANNAllArticles(){
         let expect = expectation(description: "ANN Articles")
-        AnimeNewsNetwork.sharedInstance.allArticles { (articles) in
-            //os_log("%@: Article: %@", self.description, articles)
+        AnimeNewsNetwork.sharedInstance.allArticles(articleType: AnimeNewsNetwork.ANNArticle.Views.editorial) { (articles) in
+            os_log("%@: Editorial articles: %@", self.description, articles)
             expect.fulfill()
         }
         
@@ -116,7 +116,7 @@ class AnimeManagerTests: XCTestCase {
     func testANNReport(){
         let expect = expectation(description: "ANN Articles")
         AnimeNewsNetwork.sharedInstance.generatedReports(key: .ratingsID) { (json) in
-            os_log("%@: Ratings: %@", self.description, json)
+            //os_log("%@: Ratings: %@", self.description, json)
             expect.fulfill()
         }
         
