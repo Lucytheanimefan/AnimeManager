@@ -66,7 +66,7 @@ class AnimeManagerTests: XCTestCase {
 //    func testFunimationLogin(){
 //        let expect = expectation(description: "Funi Auth")
 //        let funi = Funimation.init()
-//        funi.authenticate(username: "spothorse9.lucy@gmail.com", password: "", completion: {(data) in
+//        funi.authenticate(username: "spothorse9.lucy@gmail.com", password: "Pink9999!", completion: {(data) in
 //
 //            expect.fulfill()
 //            }
@@ -76,35 +76,40 @@ class AnimeManagerTests: XCTestCase {
 //            os_log("Failed HTTP Request with error: %@", error.debugDescription)
 //        }
 //    }
+
+//    func testKitsu(){
+//        let expect = expectation(description: "Kitsu Auth")
+//        Kitsu().search(attribute: "text", value: "tokyo ghoul", completion: {(data) in
+//            //os_log("%@: Result: %@", self.description, data)
+//            expect.fulfill()
+//        })
+//
+//        waitForExpectations(timeout: 20) { (error) in
+//            os_log("Failed HTTP Request with error: %@", error.debugDescription)
+//        }
+//    }
     
-    func testKitsu(){
-        let expect = expectation(description: "Kitsu Auth")
-        Kitsu().search(attribute: "text", value: "tokyo ghoul", completion: {(data) in
-            os_log("%@: Result: %@", self.description, data)
+//    func testCRLogin(){
+//        let expect = expectation(description: "CR Auth")
+//        CrunchyRoll().login(username: "lucy.7a11@gmail.com", password: "", completion: {(data) in
+//            os_log("%@: Result: %@", self.description, data)
+//            expect.fulfill()
+//        })
+//
+//        waitForExpectations(timeout: 10) { (error) in
+//            os_log("Failed HTTP Request with error: %@", error.debugDescription)
+//        }
+//    }
+    
+    func testANNAllArticles(){
+        let expect = expectation(description: "ANN Articles")
+        AnimeNewsNetwork.sharedInstance.allArticles { (articles) in
+            os_log("%@: Article: %@", self.description, articles)
             expect.fulfill()
-        })
-        
-        waitForExpectations(timeout: 20) { (error) in
-            os_log("Failed HTTP Request with error: %@", error.debugDescription)
         }
-    }
-    
-    func testCRLogin(){
-        let expect = expectation(description: "CR Auth")
-        CrunchyRoll().login(username: "lucy.7a11@gmail.com", password: "", completion: {(data) in
-            os_log("%@: Result: %@", self.description, data)
-            expect.fulfill()
-        })
         
-        waitForExpectations(timeout: 10) { (error) in
+        waitForExpectations(timeout: 60) { (error) in
             os_log("Failed HTTP Request with error: %@", error.debugDescription)
-        }
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
         }
     }
     

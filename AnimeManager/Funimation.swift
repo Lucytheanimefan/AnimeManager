@@ -22,10 +22,17 @@ public class Funimation: NSObject {
         Requester.sharedInstance.makeHTTPRequest(method: "POST", url: url, body: ["username":username, "password":password], headers: ["User-Agent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36", "Territory":"US"], completion: { (data) in
             if let json = data as? [String:Any]
             {
-                os_log("FUNIMATION AUTH RESULTS: %@", json)
+                //os_log("FUNIMATION AUTH RESULTS: %@", json)
+                if (json["success"] as? Int == 0)
+                {
+                    os_log("%@: Error authenticating: %@", self.description, json["error"] as! String)
+                }
+                else
+                {
+                    completion(data)
+                }
             }
             
-            completion(data)
         }) { (error) in
             print(error)
         }

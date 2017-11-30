@@ -30,6 +30,7 @@
 		7C66B1FD1FCE42C30016FACD /* Funimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66B1FC1FCE42C30016FACD /* Funimation.swift */; };
 		7C66B1FF1FCE51170016FACD /* Kitsu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66B1FE1FCE51170016FACD /* Kitsu.swift */; };
 		7C66B2011FCE55DA0016FACD /* CrunchyRoll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66B2001FCE55DA0016FACD /* CrunchyRoll.swift */; };
+		7C66B2031FD0987A0016FACD /* AnimeNewsNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66B2021FD0987A0016FACD /* AnimeNewsNetwork.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		7C66B1FC1FCE42C30016FACD /* Funimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Funimation.swift; sourceTree = "<group>"; };
 		7C66B1FE1FCE51170016FACD /* Kitsu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kitsu.swift; sourceTree = "<group>"; };
 		7C66B2001FCE55DA0016FACD /* CrunchyRoll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrunchyRoll.swift; sourceTree = "<group>"; };
+		7C66B2021FD0987A0016FACD /* AnimeNewsNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeNewsNetwork.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 				7C66B1FE1FCE51170016FACD /* Kitsu.swift */,
 				7C66B1F21FCDF1EC0016FACD /* Requester.swift */,
 				7C66B2001FCE55DA0016FACD /* CrunchyRoll.swift */,
+				7C66B2021FD0987A0016FACD /* AnimeNewsNetwork.swift */,
 			);
 			path = AnimeManager;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 			files = (
 				7C66B1F31FCDF1EC0016FACD /* Requester.swift in Sources */,
 				7C66B2011FCE55DA0016FACD /* CrunchyRoll.swift in Sources */,
+				7C66B2031FD0987A0016FACD /* AnimeNewsNetwork.swift in Sources */,
 				7C66B1F11FCDF1010016FACD /* MyAnimeList.swift in Sources */,
 				7C66B1FF1FCE51170016FACD /* Kitsu.swift in Sources */,
 				7C66B1FD1FCE42C30016FACD /* Funimation.swift in Sources */,
