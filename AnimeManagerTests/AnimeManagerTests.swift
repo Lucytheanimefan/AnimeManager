@@ -104,7 +104,19 @@ class AnimeManagerTests: XCTestCase {
     func testANNAllArticles(){
         let expect = expectation(description: "ANN Articles")
         AnimeNewsNetwork.sharedInstance.allArticles { (articles) in
-            os_log("%@: Article: %@", self.description, articles)
+            //os_log("%@: Article: %@", self.description, articles)
+            expect.fulfill()
+        }
+        
+        waitForExpectations(timeout: 60) { (error) in
+            os_log("Failed HTTP Request with error: %@", error.debugDescription)
+        }
+    }
+    
+    func testANNReport(){
+        let expect = expectation(description: "ANN Articles")
+        AnimeNewsNetwork.sharedInstance.generatedReports(key: .ratingsID) { (json) in
+            os_log("%@: Ratings: %@", self.description, json)
             expect.fulfill()
         }
         

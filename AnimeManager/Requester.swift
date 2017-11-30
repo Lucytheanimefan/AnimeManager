@@ -166,7 +166,7 @@ extension Requester:XMLParserDelegate{
             xmlChunk = [String:Any]()
         }
         // Finished 1 chunk of data, time to do something with it
-        if (elementName == "rss"){
+        if (elementName == "rss" || elementName == "report"){
             //os_log("%@: CHUNK: %@", self.className, xmlChunk)
             self.xmlCompletion(xmlChunks)
             xmlChunks = [[String:Any]]()

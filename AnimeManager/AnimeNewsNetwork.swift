@@ -19,7 +19,7 @@ public class AnimeNewsNetwork: NSObject {
     
     static let allArticlesEndpoint:String = "all/rss.xml"
     
-    public enum ANNKeys:Int{
+    public enum ANNKey:Int{
         case recentlyAddedAnime = 148,
         recentlyAddedManga = 149,
         recentlyAddedCompanies = 151,
@@ -31,6 +31,17 @@ public class AnimeNewsNetwork: NSObject {
         Requester.sharedInstance.makeHTTPRequest(method: "GET", url: AnimeNewsNetwork.baseURL + AnimeNewsNetwork.allArticlesEndpoint, body: nil, headers: nil, completion: { data in
             if let articles = data as? [[String:Any]]{
                 completion(articles)
+            }
+        }) { (error) in
+            os_log("%@: Error with HTTP request: %@", log: .default, type: .error, self.description, error.debugDescription)
+        }
+    }
+    
+    public func generatedReports(key:ANNKey, completion:@escaping (_ articles:[[String:Any]]) -> Void){
+        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: AnimeNewsNetwork.baseURL + AnimeNewsNetwork.reportsEndpoint + String(key.rawValue), body: nil, headers: nil, completion: { (data) in
+            if let report = data as? [[String:Any]]
+            {
+                completion(report)
             }
         }) { (error) in
             os_log("%@: Error with HTTP request: %@", log: .default, type: .error, self.description, error.debugDescription)
