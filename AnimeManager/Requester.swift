@@ -13,17 +13,6 @@ class Requester: NSObject {
     
     static let sharedInstance = Requester()
     
-    private var _parser:XMLParser!
-//    var parser:XMLParser {
-//        get {
-//            return self._parser
-//        }
-//        set {
-//            self._parser = newValue
-//            self._parser.delegate = self
-//        }
-//    }
-    
     var xmlElementName:String!
     var xmlChunk:[String:Any]! = [String:Any]()
     var xmlChunks:[[String:Any]]! = [[String:Any]]()
@@ -35,11 +24,11 @@ class Requester: NSObject {
         super.init()
     }
     
-    func makeHTTPRequest(method:String, url: String, body: [String: Any]?, headers:[String:String]?, completion:@escaping (_ result:Any) -> Void, errorHandler:@escaping (_ result:[String:Any]) -> Void) {
+    func makeHTTPRequest(method:String, url: String, body: Any?, headers:[String:String]?, completion:@escaping (_ result:Any) -> Void, errorHandler:@escaping (_ result:[String:Any]) -> Void) {
         
         let request = NSMutableURLRequest(url: NSURL(string: url)! as URL)
         request.httpMethod = method
-        
+
         headers?.forEach({ (arg) in
             let (key, value) = arg
             request.addValue(value, forHTTPHeaderField: key)
@@ -47,13 +36,18 @@ class Requester: NSObject {
         
         if (body != nil)
         {
-            do {
-                os_log("%@: Set body: %@", self.description, body!)
-                request.httpBody = try JSONSerialization.data(withJSONObject: body!, options: [])
+            if let body = body as? [String: Any]{
+                do {
+                    os_log("%@: Set body: %@", self.description, body)
+                    request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+                }
+                catch
+                {
+                    os_log("%@: Error serializing body %@", self.description, body)
+                }
             }
-            catch
-            {
-                os_log("%@: Error serializing body %@", self.description, body!)
+            else if let body = body as? Data {
+                request.httpBody = body
             }
         }
         

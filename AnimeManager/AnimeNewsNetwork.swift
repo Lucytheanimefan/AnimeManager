@@ -19,6 +19,7 @@ public class AnimeNewsNetwork: NSObject {
     
     static let allArticlesEndpoint:String = "/rss.xml"
     
+    // article types 
     public struct ANNArticle {
         static let all = "all"
         
@@ -55,9 +56,7 @@ public class AnimeNewsNetwork: NSObject {
                 static let mikeToole = "the-mike-toole-show"
                 static let xButton = "the-x-button"
             }
-        }
-        
-        
+        } 
     }
     
     public enum ANNKey:Int{

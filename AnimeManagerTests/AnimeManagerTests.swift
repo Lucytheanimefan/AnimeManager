@@ -100,29 +100,42 @@ class AnimeManagerTests: XCTestCase {
 //            os_log("Failed HTTP Request with error: %@", error.debugDescription)
 //        }
 //    }
+//
+//    func testANNAllArticles(){
+//        let expect = expectation(description: "ANN Articles")
+//        AnimeNewsNetwork.sharedInstance.allArticles(articleType: AnimeNewsNetwork.ANNArticle.Views.editorial) { (articles) in
+//            os_log("%@: Editorial articles: %@", self.description, articles)
+//            expect.fulfill()
+//        }
+//
+//        waitForExpectations(timeout: 60) { (error) in
+//            os_log("Failed HTTP Request with error: %@", type: .error, error.debugDescription)
+//        }
+//    }
+//
+//    func testANNReport(){
+//        let expect = expectation(description: "ANN Articles")
+//        AnimeNewsNetwork.sharedInstance.generatedReports(key: .ratingsID) { (json) in
+//            //os_log("%@: Ratings: %@", self.description, json)
+//            expect.fulfill()
+//        }
+//
+//        waitForExpectations(timeout: 60) { (error) in
+//            os_log("Failed HTTP Request with error: %@",  type: .error, error.debugDescription)
+//        }
+//    }
     
-    func testANNAllArticles(){
-        let expect = expectation(description: "ANN Articles")
-        AnimeNewsNetwork.sharedInstance.allArticles(articleType: AnimeNewsNetwork.ANNArticle.Views.editorial) { (articles) in
-            os_log("%@: Editorial articles: %@", self.description, articles)
+    func testAniListAuth(){
+        let expect = expectation(description: "AniList Auth")
+        let ani = AniList(clientID:  "195", clientSecret: "")
+        ani.authenticate { (accessToken) in
+            os_log("%@: Access token: ", self.description, accessToken)
             expect.fulfill()
         }
-        
         waitForExpectations(timeout: 60) { (error) in
-            os_log("Failed HTTP Request with error: %@", error.debugDescription)
-        }
-    }
-    
-    func testANNReport(){
-        let expect = expectation(description: "ANN Articles")
-        AnimeNewsNetwork.sharedInstance.generatedReports(key: .ratingsID) { (json) in
-            //os_log("%@: Ratings: %@", self.description, json)
-            expect.fulfill()
+            os_log("Failed HTTP Request with error: %@",  type: .error, error.debugDescription)
         }
         
-        waitForExpectations(timeout: 60) { (error) in
-            os_log("Failed HTTP Request with error: %@", error.debugDescription)
-        }
     }
     
 }
