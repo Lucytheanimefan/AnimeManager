@@ -12,9 +12,12 @@ import os.log
 
 class AnimeManagerTests: XCTestCase {
     
+    var ani:AniList!// = AniList(clientID:  "195", clientSecret: "")
+    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        ani = AniList(clientID:  "195", clientSecret: "")
+
     }
     
     override func tearDown() {
@@ -127,11 +130,24 @@ class AnimeManagerTests: XCTestCase {
     
     func testAniListAuth(){
         let expect = expectation(description: "AniList Auth")
-        let ani = AniList(clientID:  "195", clientSecret: "")
+        //let ani = AniList(clientID:  "195", clientSecret: "")
         ani.authenticate { (accessToken) in
             os_log("%@: Access token: ", self.description, accessToken)
             expect.fulfill()
         }
+        waitForExpectations(timeout: 60) { (error) in
+            os_log("Failed HTTP Request with error: %@",  type: .error, error.debugDescription)
+        }
+    }
+    
+    func testAniListUser(){
+        let expect = expectation(description: "AniList User")
+        
+        ani.user { (userInfo) in
+            os_log("%@: User info: %@", self.description, userInfo)
+            expect.fulfill()
+        }
+        
         waitForExpectations(timeout: 60) { (error) in
             os_log("Failed HTTP Request with error: %@",  type: .error, error.debugDescription)
         }
