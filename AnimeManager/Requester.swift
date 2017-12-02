@@ -152,7 +152,7 @@ extension Requester:XMLParserDelegate{
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        if (elementName == "item"){
+        if (elementName == "item" || elementName == "user"){
             // Handle chunk by chunk
             // append the chunk
             xmlChunks.append(xmlChunk)
@@ -160,7 +160,7 @@ extension Requester:XMLParserDelegate{
             xmlChunk = [String:Any]()
         }
         // Finished 1 chunk of data, time to do something with it
-        if (elementName == "rss" || elementName == "report"){
+        if (elementName == "rss" || elementName == "report" || elementName == "user" /*mal user verification*/){
             //os_log("%@: CHUNK: %@", self.className, xmlChunk)
             self.xmlCompletion(xmlChunks)
             xmlChunks = [[String:Any]]()

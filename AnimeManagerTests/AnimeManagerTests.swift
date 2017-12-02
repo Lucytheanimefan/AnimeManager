@@ -55,6 +55,19 @@ class AnimeManagerTests: XCTestCase {
 //        }
 //    }
     
+    func testMALVerify(){
+        let expect = expectation(description: "MAL Verify")
+        let aniList = MyAnimeList(username: "Silent_Muse", password: "")
+        aniList.verifyAccount(completion: { (data) in
+            
+            expect.fulfill()
+        })
+        
+        waitForExpectations(timeout: 20) { (error) in
+            os_log("Failed HTTP Request with error: %@", error.debugDescription)
+        }
+    }
+    
 //    func testSearchMAL(){
 //        let expect = expectation(description: "MAL Search")
 //        let aniList = MyAnimeList(username: "Silent_Muse", password: "")
@@ -127,31 +140,31 @@ class AnimeManagerTests: XCTestCase {
 //            os_log("Failed HTTP Request with error: %@",  type: .error, error.debugDescription)
 //        }
 //    }
-    
-    func testAniListAuth(){
-        let expect = expectation(description: "AniList Auth")
-        //let ani = AniList(clientID:  "195", clientSecret: "")
-        ani.authenticate { (accessToken) in
-            os_log("%@: Access token: ", self.description, accessToken)
-            expect.fulfill()
-        }
-        waitForExpectations(timeout: 60) { (error) in
-            os_log("Failed HTTP Request with error: %@",  type: .error, error.debugDescription)
-        }
-    }
-    
-    func testAniListUser(){
-        let expect = expectation(description: "AniList User")
-        
-        ani.user { (userInfo) in
-            os_log("%@: User info: %@", self.description, userInfo)
-            expect.fulfill()
-        }
-        
-        waitForExpectations(timeout: 60) { (error) in
-            os_log("Failed HTTP Request with error: %@",  type: .error, error.debugDescription)
-        }
-        
-    }
+//
+//    func testAniListAuth(){
+//        let expect = expectation(description: "AniList Auth")
+//        //let ani = AniList(clientID:  "195", clientSecret: "")
+//        ani.authenticate { (accessToken) in
+//            os_log("%@: Access token: ", self.description, accessToken)
+//            expect.fulfill()
+//        }
+//        waitForExpectations(timeout: 60) { (error) in
+//            os_log("Failed HTTP Request with error: %@",  type: .error, error.debugDescription)
+//        }
+//    }
+//
+//    func testAniListUser(){
+//        let expect = expectation(description: "AniList User")
+//
+//        ani.user { (userInfo) in
+//            os_log("%@: User info: %@", self.description, userInfo)
+//            expect.fulfill()
+//        }
+//
+//        waitForExpectations(timeout: 60) { (error) in
+//            os_log("Failed HTTP Request with error: %@",  type: .error, error.debugDescription)
+//        }
+//
+//    }
     
 }

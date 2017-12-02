@@ -21,8 +21,10 @@ public class MyAnimeList: NSObject {
     lazy var authHeader:String? = {
         if (self.password != nil && self.username != nil)
         {
-            let rawHeader = self.username + ":" + self.password
-            return rawHeader.toBase64()
+            let rawHeader = String(format: "%@:%@", self.username, self.password)//self.username + ":" + self.password
+            let loginData = rawHeader.data(using: String.Encoding.utf8)!
+            let base64LoginString = loginData.base64EncodedString()
+            return "Basic \(base64LoginString)"
         }
         return nil
     }()
@@ -54,6 +56,19 @@ public class MyAnimeList: NSObject {
             }
         }) { (error) -> Void in
             errorHandler(error)
+        }
+    }
+    
+    public func verifyAccount(completion:@escaping (_ result:[String:Any]) -> Void){
+        let url = MyAnimeList.baseURL + "api/account/verify_credentials.xml"
+        
+        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, headers: ["Authorization":self.authHeader!], completion: { (data) in
+            print(data)
+            if let json = data as? [String:Any]{
+                completion(json)
+            }
+        }) { (error) in
+            os_log("%@: Error: %@", type:.error,self.description, error)
         }
     }
     
