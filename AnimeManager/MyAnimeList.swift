@@ -85,9 +85,50 @@ public class MyAnimeList: NSObject {
                 
             }
         }) { (error) -> Void in
-        
+            
         }
         
+    }
+    
+// Anime values:
+//    episode. int
+//    status. int OR string. 1/watching, 2/completed, 3/onhold, 4/dropped, 6/plantowatch
+//    score. int
+//    storage_type. int (will be updated to accomodate strings soon)
+//    storage_value. float
+//    times_rewatched. int
+//    rewatch_value. int
+//    date_start. date. mmddyyyy
+//    date_finish. date. mmddyyyy
+//    priority. int
+//    enable_discussion. int. 1=enable, 0=disable
+//    enable_rewatching. int. 1=enable, 0=disable
+//    comments. string
+//    tags. string. tags separated by commas
+    public func updateMALEntry(id:String, parameters:[String:Any], completion:@escaping (_ result:[String:Any]) -> Void){
+        let url = MyAnimeList.baseURL + "api/animelist/update/\(id).xml"
+        let body = ["data":jsonToXML(json: parameters)]
+        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: url, body: body, headers: ["Authorization":self.authHeader!], completion: { (data) in
+            
+            print(data)
+            if let result = data as? [String:Any]{
+                completion(result)
+            }
+        }) { (error) in
+            os_log("%@: Error: %@", type:.error,self.description, error)
+        }
+    }
+    
+    private func jsonToXML(json:[String:Any]) -> String{
+        var xml = """
+        <?xml version="1" encoding="UTF-8"?><entry>
+        """
+        json.forEach { (keyValuePair) in
+            let (key, value) = keyValuePair
+            xml += "<\(key)>\(value)</\(key)>"
+        }
+        xml += "</entry>"
+        return xml
     }
 
 }
