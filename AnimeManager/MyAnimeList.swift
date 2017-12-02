@@ -28,10 +28,10 @@ public class MyAnimeList: NSObject {
     }()
     
     public enum Status : Int {
-        case currentlyWatching = 1, completed, onHold, dropped, planToWatch, all
+        case all = 0, currentlyWatching, completed, onHold, dropped, planToWatch
     }
     
-    init(username:String, password:String?) {
+    public init(username:String, password:String?) {
         super.init()
         self.username = username
         if (password != nil)

@@ -11,7 +11,7 @@ import os.log
 
 public class AnimeNewsNetwork: NSObject {
     
-    static let sharedInstance = AnimeNewsNetwork()
+    public static let sharedInstance = AnimeNewsNetwork()
     
     static let baseURL:String = "https://www.animenewsnetwork.com/"
     
@@ -21,40 +21,40 @@ public class AnimeNewsNetwork: NSObject {
     
     // article types 
     public struct ANNArticle {
-        static let all = "all"
+        public static let all = "all"
         
-        static let newsroom = "newsroom"
-        struct NewsRoom{
-            let interest = "interest"
-            let convention = "convention"
-            let news = "news"
-            let pressRelease = "press-release"
+        public static let newsroom = "newsroom"
+        public struct NewsRoom{
+            public let interest = "interest"
+            public let convention = "convention"
+            public let news = "news"
+            public let pressRelease = "press-release"
         }
         
-        static let contest = "contest"
+        public static let contest = "contest"
         
-        static let views = "views"
-        struct Views {
-            static let views = "views"
-            static let editorial = "editorial"
-            static let feature = "feature"
-            struct Feature {
+        public static let views = "views"
+        public struct Views {
+            public static let views = "views"
+            public static let editorial = "editorial"
+            public static let feature = "feature"
+            public struct Feature {
                 static let interview = "interview"
             }
-            static let review = "review"
+            public static let review = "review"
             
-            static let column = "column"
-            struct Column {
-                static let ANNCast = "anncast"
-                static let ANNNina = "anime-news-nina"
-                static let AstroToy = "astro-toy"
-                static let answerman = "answerman"
-                static let houseOf1000Manga = "house-of-1000-manga"
-                static let encyclopedist = "encyclopedist"
-                static let rightTurnOnly = "right-turn-only"
-                static let shelfLife = "shelf-life"
-                static let mikeToole = "the-mike-toole-show"
-                static let xButton = "the-x-button"
+            public static let column = "column"
+            public struct Column {
+                public static let ANNCast = "anncast"
+                public static let ANNNina = "anime-news-nina"
+                public static let AstroToy = "astro-toy"
+                public static let answerman = "answerman"
+                public static let houseOf1000Manga = "house-of-1000-manga"
+                public static let encyclopedist = "encyclopedist"
+                public static let rightTurnOnly = "right-turn-only"
+                public static let shelfLife = "shelf-life"
+                public static let mikeToole = "the-mike-toole-show"
+                public static let xButton = "the-x-button"
             }
         } 
     }
