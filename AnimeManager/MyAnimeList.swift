@@ -28,7 +28,7 @@ public class MyAnimeList: NSObject {
     }()
     
     public enum Status : Int {
-        case all = 0, currentlyWatching, completed, onHold, dropped, planToWatch
+        case currentlyWatching=1, completed, onHold, dropped, planToWatch=6, all=7
     }
     
     public init(username:String, password:String?) {
