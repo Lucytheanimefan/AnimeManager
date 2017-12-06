@@ -12,7 +12,7 @@ import os.log
 
 class AnimeManagerTests: XCTestCase {
     
-    var ani:AniList!// = AniList(clientID:  "195", clientSecret: "")
+    var ani:AniList!
     let MAL = MyAnimeList(username: "Silent_Muse", password: "")
     
     override func setUp() {
@@ -22,7 +22,6 @@ class AnimeManagerTests: XCTestCase {
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
@@ -70,7 +69,7 @@ class AnimeManagerTests: XCTestCase {
 //    }
     
     func testUpdateMALEntry(){
-        let animeID = "1689" // 5 cm per second
+        let animeID = "20785" //Mahouka //"1689" // 5 cm per second
         let params = ["score": 9]
         let expect = expectation(description: "MAL Update")
         MAL.updateMALEntry(id: animeID, parameters: params) { (result) in

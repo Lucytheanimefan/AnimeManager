@@ -8,6 +8,7 @@
 
 import UIKit
 import os.log
+import Foundation
 
 public class MyAnimeList: NSObject {
     
@@ -90,6 +91,13 @@ public class MyAnimeList: NSObject {
         
     }
     
+    public func anime(for id:String)
+    {
+        let url = MyAnimeList.baseURL + "anime/\(id)"
+        
+        //Requester.sharedInstance.makeHTTPRequest(method: <#T##String#>, url: <#T##String#>, body: <#T##Any?#>, headers: <#T##[String : String]?#>, completion: <#T##(Any) -> Void#>, errorHandler: <#T##([String : Any]) -> Void#>)
+    }
+    
 // Anime values:
 //    episode. int
 //    status. int OR string. 1/watching, 2/completed, 3/onhold, 4/dropped, 6/plantowatch
@@ -110,7 +118,7 @@ public class MyAnimeList: NSObject {
         let body = ["data":jsonToXML(json: parameters)]
         Requester.sharedInstance.makeHTTPRequest(method: "POST", url: url, body: body, headers: ["Authorization":self.authHeader!], completion: { (data) in
             
-            print(data)
+            //print(data)
             if let result = data as? [String:Any]{
                 completion(result)
             }
@@ -120,9 +128,7 @@ public class MyAnimeList: NSObject {
     }
     
     private func jsonToXML(json:[String:Any]) -> String{
-        var xml = """
-        <?xml version="1" encoding="UTF-8"?><entry>
-        """
+        var xml = ("<?xml version='1' encoding='UTF-8'?><entry>")
         json.forEach { (keyValuePair) in
             let (key, value) = keyValuePair
             xml += "<\(key)>\(value)</\(key)>"
