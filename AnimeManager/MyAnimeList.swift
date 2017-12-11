@@ -93,7 +93,7 @@ public class MyAnimeList: NSObject {
     
     public func anime(for id:String)
     {
-        let url = MyAnimeList.baseURL + "anime/\(id)"
+        //let url = MyAnimeList.baseURL + "anime/\(id)"
         
         //Requester.sharedInstance.makeHTTPRequest(method: <#T##String#>, url: <#T##String#>, body: <#T##Any?#>, headers: <#T##[String : String]?#>, completion: <#T##(Any) -> Void#>, errorHandler: <#T##([String : Any]) -> Void#>)
     }

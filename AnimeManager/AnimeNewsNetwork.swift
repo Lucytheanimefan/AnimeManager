@@ -25,10 +25,10 @@ public class AnimeNewsNetwork: NSObject {
         
         public static let newsroom = "newsroom"
         public struct NewsRoom{
-            public let interest = "interest"
-            public let convention = "convention"
-            public let news = "news"
-            public let pressRelease = "press-release"
+            public static let interest = "interest"
+            public static let convention = "convention"
+            public static let news = "news"
+            public static let pressRelease = "press-release"
         }
         
         public static let contest = "contest"

@@ -87,8 +87,10 @@ class Requester: NSObject {
                 catch
                 {
                     var xmlSuccess:Bool!
+                    let parser = XMLParser(data: data!)
+                    
                     // Try XML format (ANN)
-                    if let parser = XMLParser(data: data!) as? XMLParser{
+                   //if let parser = XMLParser(data: data!) as XMLParser{
                         parser.delegate = self
                         self.xmlCompletion = completion
                         xmlSuccess = parser.parse()
@@ -96,7 +98,7 @@ class Requester: NSObject {
                         if (xmlSuccess){
                             return
                         }
-                    }
+                    //}
                     
                     
                     if let dataString = String(data:data!, encoding:.utf8), xmlSuccess == false
