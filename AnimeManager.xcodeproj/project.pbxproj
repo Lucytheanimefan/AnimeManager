@@ -32,6 +32,7 @@
 		7C66B2011FCE55DA0016FACD /* CrunchyRoll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66B2001FCE55DA0016FACD /* CrunchyRoll.swift */; };
 		7C66B2031FD0987A0016FACD /* AnimeNewsNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66B2021FD0987A0016FACD /* AnimeNewsNetwork.swift */; };
 		7C66B2051FD0B02B0016FACD /* AniList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66B2041FD0B02A0016FACD /* AniList.swift */; };
+		7C8665FA1FE2B997003022D1 /* CustomAnimeServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8665F91FE2B997003022D1 /* CustomAnimeServer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		7C66B2001FCE55DA0016FACD /* CrunchyRoll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrunchyRoll.swift; sourceTree = "<group>"; };
 		7C66B2021FD0987A0016FACD /* AnimeNewsNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeNewsNetwork.swift; sourceTree = "<group>"; };
 		7C66B2041FD0B02A0016FACD /* AniList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AniList.swift; sourceTree = "<group>"; };
+		7C8665F91FE2B997003022D1 /* CustomAnimeServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnimeServer.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 				7C66B2001FCE55DA0016FACD /* CrunchyRoll.swift */,
 				7C66B2021FD0987A0016FACD /* AnimeNewsNetwork.swift */,
 				7C66B2041FD0B02A0016FACD /* AniList.swift */,
+				7C8665F91FE2B997003022D1 /* CustomAnimeServer.swift */,
 			);
 			path = AnimeManager;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				7C66B1F11FCDF1010016FACD /* MyAnimeList.swift in Sources */,
 				7C66B1FF1FCE51170016FACD /* Kitsu.swift in Sources */,
 				7C66B1FD1FCE42C30016FACD /* Funimation.swift in Sources */,
+				7C8665FA1FE2B997003022D1 /* CustomAnimeServer.swift in Sources */,
 				7C66B2051FD0B02B0016FACD /* AniList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
