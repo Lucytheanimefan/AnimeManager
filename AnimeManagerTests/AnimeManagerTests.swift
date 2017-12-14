@@ -68,18 +68,18 @@ class AnimeManagerTests: XCTestCase {
 //        }
 //    }
     
-    func testUpdateMALEntry(){
-        let animeID = "20785" //Mahouka //"1689" // 5 cm per second
-        let params = ["score": 9]
-        let expect = expectation(description: "MAL Update")
-        MAL.updateMALEntry(id: animeID, parameters: params) { (result) in
-            os_log("%@: Result: %@", self.description, result)
-            expect.fulfill()
-        }
-        waitForExpectations(timeout: 20) { (error) in
-            os_log("Failed HTTP Request with error: %@", error.debugDescription)
-        }
-    }
+//    func testUpdateMALEntry(){
+//        let animeID = "20785" //Mahouka //"1689" // 5 cm per second
+//        let params = ["score": 9]
+//        let expect = expectation(description: "MAL Update")
+//        MAL.updateMALEntry(id: animeID, parameters: params) { (result) in
+//            os_log("%@: Result: %@", self.description, result)
+//            expect.fulfill()
+//        }
+//        waitForExpectations(timeout: 20) { (error) in
+//            os_log("Failed HTTP Request with error: %@", error.debugDescription)
+//        }
+//    }
     
 //    func testSearchMAL(){
 //        let expect = expectation(description: "MAL Search")
@@ -179,5 +179,17 @@ class AnimeManagerTests: XCTestCase {
 //        }
 //
 //    }
+    
+    func testSeasonalAnimeAniList(){
+        let expect = expectation(description: "AniList Seasonal anime")
+        ani.anime(for: "winter") { (anime) in
+            os_log("%@: Anime: %@", self.description, anime)
+            expect.fulfill()
+        }
+        waitForExpectations(timeout: 60) { (error) in
+            os_log("Failed HTTP Request with error: %@",  type: .error, error.debugDescription)
+        }
+    }
+    
     
 }

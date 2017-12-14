@@ -11,9 +11,11 @@ import os.log
 
 class AniList: NSObject {
     
-    static let baseURL = "https://graphql.anilist.co/api/v2/"
+    static let baseURL = "https://graphql.anilist.co/"
     
-    let authEndpoint = "oauth/token"
+    //static let graphURL = "https://graphql.anilist.co"
+    
+    let authEndpoint = "api/v2/oauth/token"
     
     var displayName:String!
     var clientID:String! 
@@ -49,7 +51,7 @@ class AniList: NSObject {
     
     // MARK: User
     public func authenticate(completion:@escaping (_ accessToken:String) -> Void){
-        //let params:[String:Any] = ["grant_type":"client_credentials", "client_id": self.clientID, "client_secret": self.clientSecret]
+ 
         if self.checkToken(){
             completion(self.accessToken)
             return
@@ -95,6 +97,17 @@ class AniList: NSObject {
         }
     }
     
+    public func anime(for season:String, completion:@escaping (_ anime:[String:Any]) -> Void){
+        let url = AniList.baseURL
+        let body = ["season":season]
+        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: url, body: body, headers: self.headers, completion: { (data) in
+            if let json = data as? [String:Any]{
+                completion(json)
+            }
+        }) { (error) in
+            os_log("%@: Error", log: .default, type: .error, self.description, error)
+        }
+    }
     
     private func checkToken() -> Bool{
         return (self.accessToken != nil && self.expiration != nil && self.lastAuthed != nil &&
