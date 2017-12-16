@@ -11,11 +11,11 @@ import os.log
 
 public class CustomAnimeServer: NSObject {
     
-    #if DEBUG
-    var baseURL = "http://127.0.0.1:5000/"
-    #else
+//    #if DEBUG
+//    var baseURL = "http://127.0.0.1:5000/"
+//    #else
     var baseURL = "https://lucys-anime-server.herokuapp.com/"
-    #endif
+//    #endif
     
     let headers = ["Content-Type": "application/json",
                    "Accept": "application/json"]
@@ -42,6 +42,26 @@ public class CustomAnimeServer: NSObject {
         }, errorHandler: { (error) in
             os_log("%@: Error: %@", self.description, error)
         })
+    }
+    
+    public func getReview(animeID:String? ,completion:@escaping (_ response:String) -> Void){
+        var url:String! = "\(baseURL)reviews"
+        if (animeID != nil)
+        {
+            url.append("?anime_id=\(animeID!)")
+        }
+        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, headers: self.headers, completion: { (data) in
+            print(data)
+            if let json = data as? [String:Any]
+            {
+                os_log("%@: Response: %@", self.description, json)
+                if let resp = json["string"] as? String{
+                    completion(resp)
+                }
+            }
+        }) { (error) in
+            os_log("%@: Error: %@", self.description, error)
+        }
     }
 
 }
