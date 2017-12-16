@@ -11,13 +11,14 @@ import os.log
 
 public class CustomAnimeServer: NSObject {
     
-//    #if DEBUG
-//    var baseURL = "http://0.0.0.0:5000/"
-//    #else
+    #if DEBUG
+    var baseURL = "http://127.0.0.1:5000/"
+    #else
     var baseURL = "https://lucys-anime-server.herokuapp.com/"
-    //#endif
+    #endif
     
-    
+    let headers = ["Content-Type": "application/json",
+                   "Accept": "application/json"]
     
     convenience init(baseURL:String) {
         self.init()
@@ -34,8 +35,7 @@ public class CustomAnimeServer: NSObject {
     
     public func updateReview(title:String, animeID:String, review:String, completion:@escaping (_ response:String) -> Void){
         let body = ["title":title, "anime_id":animeID, "review":review]
-        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: "\(baseURL)updateReview", body: body, headers: nil, completion: {(response) in
-            print(response)
+        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: "\(baseURL)updateReview", body: body, headers: self.headers, completion: {(response) in
             if let resp = response as? [String:Any], let res = resp["string"] as? String{
                 completion(res)
             }
