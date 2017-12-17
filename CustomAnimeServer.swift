@@ -44,19 +44,42 @@ public class CustomAnimeServer: NSObject {
         })
     }
     
-    public func getReview(animeID:String? ,completion:@escaping (_ response:String) -> Void){
+    public func getReview(animeID:String? ,completion:@escaping (_ response:[[String:Any]]) -> Void){
         var url:String! = "\(baseURL)reviews"
         if (animeID != nil)
         {
             url.append("?anime_id=\(animeID!)")
         }
         Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, headers: self.headers, completion: { (data) in
-            print(data)
+            //print(data)
             if let json = data as? [String:Any]
             {
                 os_log("%@: Response: %@", self.description, json)
+                //completion(json)
+                
                 if let resp = json["string"] as? String{
-                    completion(resp)
+                    let fixedResp = resp.replacingOccurrences(of: "\\", with: "").replacingOccurrences(of: "\"\"", with: "")
+                    print(fixedResp)
+                    let strData = fixedResp.data(using: String.Encoding.utf8, allowLossyConversion: false)
+                    do
+                    {
+                        let response: AnyObject? = try JSONSerialization.jsonObject(with: strData!, options: .allowFragments) as AnyObject
+                        
+                        if let decoded = response as? [[String:Any]]{
+                            os_log("%@: Decoded: %@", self.description, decoded)
+                            completion(decoded)
+                        }
+                        else
+                        {
+                            os_log("%@: Decoded not correct form: %@", self.description, response.debugDescription)
+                        }
+                    }
+                    catch
+                    {
+                        os_log("%@: Error: %@", self.description, error.localizedDescription)
+                    }
+                    
+                    //completion(resp)
                 }
             }
         }) { (error) in
