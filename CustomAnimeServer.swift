@@ -33,7 +33,7 @@ public class CustomAnimeServer: NSObject {
         })
     }
     
-    public func updateReview(title:String, animeID:String, review:String, completion:@escaping (_ response:String) -> Void){
+    public func updateReview(title:String, animeID:String, review:String, completion:@escaping (_ response:String) -> Void, errorcompletion:@escaping () -> Void){
         let body = ["title":title, "anime_id":animeID, "review":review]
         Requester.sharedInstance.makeHTTPRequest(method: "POST", url: "\(baseURL)updateReview", body: body, headers: self.headers, completion: {(response) in
             if let resp = response as? [String:Any], let res = resp["string"] as? String{
@@ -41,6 +41,7 @@ public class CustomAnimeServer: NSObject {
             }
         }, errorHandler: { (error) in
             os_log("%@: Error: %@", self.description, error)
+            errorcompletion()
         })
     }
     
@@ -54,13 +55,15 @@ public class CustomAnimeServer: NSObject {
             //print(data)
             if let json = data as? [String:Any]
             {
-                os_log("%@: Response: %@", self.description, json)
+                
                 //completion(json)
                 
                 if let resp = json["string"] as? String{
                     let fixedResp = resp.replacingOccurrences(of: "\\", with: "").replacingOccurrences(of: "\"\"", with: "")
-                    print(fixedResp)
-                    let strData = fixedResp.data(using: String.Encoding.utf8, allowLossyConversion: false)
+                    os_log("%@: Fixed response: %@", self.description, fixedResp)
+                    
+                    
+                    let strData = fixedResp.data(using: .utf8)
                     do
                     {
                         let response: AnyObject? = try JSONSerialization.jsonObject(with: strData!, options: .allowFragments) as AnyObject

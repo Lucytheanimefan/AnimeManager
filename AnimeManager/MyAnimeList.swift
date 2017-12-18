@@ -34,6 +34,8 @@ public class MyAnimeList: NSObject {
         case currentlyWatching=1, completed, onHold, dropped, planToWatch=6, all=7
     }
     
+    public static let statusKey:[Int:String] = [Status.currentlyWatching.rawValue:"Currently Watching", Status.completed.rawValue:"Completed", Status.onHold.rawValue: "On Hold", Status.dropped.rawValue: "Dropped", Status.planToWatch.rawValue: "Plan to Watch", Status.all.rawValue: "All"]
+    
     public init(username:String, password:String?) {
         super.init()
         self.username = username
