@@ -50,6 +50,7 @@ public class MyAnimeList: NSObject {
     {
         let url = MyAnimeList.baseURL + "animelist/" + self.username + "/load.json?status=" + String(status.rawValue)
         Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, headers: nil, completion: { (result) in
+            
             if let animeList = result as? [[String:Any]]{
                 completion(animeList)
             }

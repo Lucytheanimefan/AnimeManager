@@ -89,17 +89,13 @@ class Requester: NSObject {
                     var xmlSuccess:Bool!
                     let parser = XMLParser(data: data!)
                     
-                    // Try XML format (ANN)
-                   //if let parser = XMLParser(data: data!) as XMLParser{
-                        parser.delegate = self
-                        self.xmlCompletion = completion
-                        xmlSuccess = parser.parse()
-                        
-                        if (xmlSuccess){
-                            return
-                        }
-                    //}
+                    parser.delegate = self
+                    self.xmlCompletion = completion
+                    xmlSuccess = parser.parse()
                     
+                    if (xmlSuccess){
+                        return
+                    }
                     
                     if let dataString = String(data:data!, encoding:.utf8), xmlSuccess == false
                     {
@@ -108,12 +104,12 @@ class Requester: NSObject {
                     else
                     {
                         errorHandler(["error": "Failed with json serialization"])
-                        os_log("%@: Error seh  rializing json: %@, Trying as string.", self.description, error.localizedDescription)
+                        os_log("%@: Error serializing json: %@, Trying as string.", self.description, error.localizedDescription)
                         
                         errorHandler(["error": error.localizedDescription])
                     }
                 }
-                completion(data!)
+                //completion(data!)
             }
             else if (error != nil)
             {
