@@ -93,14 +93,7 @@ public class MyAnimeList: NSObject {
         }
         
     }
-    
-    public func anime(for id:String)
-    {
-        //let url = MyAnimeList.baseURL + "anime/\(id)"
-        
-        //Requester.sharedInstance.makeHTTPRequest(method: <#T##String#>, url: <#T##String#>, body: <#T##Any?#>, headers: <#T##[String : String]?#>, completion: <#T##(Any) -> Void#>, errorHandler: <#T##([String : Any]) -> Void#>)
-    }
-    
+
 // Anime values:
 //    episode. int
 //    status. int OR string. 1/watching, 2/completed, 3/onhold, 4/dropped, 6/plantowatch
@@ -128,6 +121,10 @@ public class MyAnimeList: NSObject {
         }) { (error) in
             os_log("%@: Error: %@", type:.error,self.description, error)
         }
+    }
+    
+    public func seasonalAnime(season:Int, completion:@escaping (_ anime:[String:Any]) -> Void){
+        self.searchMAL(query: "enddate=00000000&format=json", completion: completion)
     }
     
     private func jsonToXML(json:[String:Any]) -> String{
