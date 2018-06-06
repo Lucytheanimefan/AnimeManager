@@ -46,41 +46,48 @@ public class MyAnimeList: NSObject {
     }
     
     // Get the entire anime list
-    public func getAnimeList(status:Status, completion:@escaping (_ animeList:[[String:Any]]) -> Void, errorHandler:@escaping (_ error:[String:Any]) -> Void) -> Void
+    public func getAnimeList(status:Status, completion:@escaping (_ animeList:[[String:Any]]) -> Void) -> Void
     {
         let url = MyAnimeList.baseURL + "animelist/" + self.username + "/load.json?status=" + String(status.rawValue)
-        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, headers: nil, completion: { (result) in
+        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, headers: nil, completion: { (result, error) in
+            
+            guard error == nil else {
+                return
+            }
             
             if let animeList = result as? [[String:Any]]{
                 completion(animeList)
             }
             else
             {
-                errorHandler(["error":"Anime list not in correct format"])
+                return
             }
-        }) { (error) -> Void in
-            errorHandler(error)
-        }
+        })
     }
     
     public func verifyAccount(completion:@escaping (_ result:[String:Any]) -> Void){
         let url = MyAnimeList.baseURL + "api/account/verify_credentials.xml"
         
-        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, headers: ["Authorization":self.authHeader!], completion: { (data) in
-            print(data)
+        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, headers: ["Authorization":self.authHeader!], completion: { (data, error) in
+            guard error == nil else {
+                return
+            }
             if let json = data as? [String:Any]{
                 completion(json)
             }
-        }) { (error) in
-            os_log("%@: Error: %@", type:.error,self.description, error)
-        }
+        })
     }
     
     public func searchMAL(query:String, completion:@escaping (_ result:[String:Any]) -> Void)
     {
         let url = MyAnimeList.baseURL + "api/anime/search.xml?q=" + query.replacingOccurrences(of: " ", with: "+")
         
-        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, headers: ["Authorization":self.authHeader!], completion: { (result) in
+        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, headers: ["Authorization":self.authHeader!], completion: { (result, error) in
+            
+            guard error == nil else {
+                return
+            }
+            
             if let searchResult = result as? [String:Any]{
                 completion(searchResult)
             }
@@ -88,9 +95,7 @@ public class MyAnimeList: NSObject {
             {
                 
             }
-        }) { (error) -> Void in
-            
-        }
+        })
         
     }
 
@@ -112,15 +117,17 @@ public class MyAnimeList: NSObject {
     public func updateMALEntry(id:String, parameters:[String:Any], completion:@escaping (_ result:[String:Any]) -> Void){
         let url = MyAnimeList.baseURL + "api/animelist/update/\(id).xml"
         let body = ["data":jsonToXML(json: parameters)]
-        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: url, body: body, headers: ["Authorization":self.authHeader!], completion: { (data) in
+        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: url, body: body, headers: ["Authorization":self.authHeader!], completion: { (data, error) in
+            
+            guard error == nil else {
+                return
+            }
             
             //print(data)
             if let result = data as? [String:Any]{
                 completion(result)
             }
-        }) { (error) in
-            os_log("%@: Error: %@", type:.error,self.description, error)
-        }
+        })
     }
     
     public func seasonalAnime(season:Int, completion:@escaping (_ anime:[String:Any]) -> Void){
