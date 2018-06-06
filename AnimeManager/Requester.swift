@@ -24,7 +24,7 @@ class Requester: NSObject {
         super.init()
     }
     
-    func makeHTTPRequest(method:String, url: String, body: Any?, headers:[String:String]?, completion:@escaping (_ result:Any) -> Void, errorHandler:@escaping (_ result:[String:Any]) -> Void) {
+    func makeHTTPRequest(method:String, url: String, body: Any?, headers:[String:String]?, completion:@escaping (_ result:Any, _ error:String?) -> Void) {
         
         let request = NSMutableURLRequest(url: NSURL(string: url)! as URL)
         request.httpMethod = method
@@ -55,21 +55,12 @@ class Requester: NSObject {
             os_log("%@: Request: %@", self.description, request.description)
         #endif
         
-        executeHTTPRequest(request: request as URLRequest, completion: completion, errorHandler: errorHandler)
+        executeHTTPRequest(request: request as URLRequest, completion: completion)
         
         
     }
     
-    private func executeHTTPRequest(request: URLRequest, completion:@escaping (_ result:Any) -> Void, errorHandler:@escaping (_ result:[String:Any]) -> Void =  { error in
-        #if DEBUG
-            os_log("Execute HTTP request")
-        #endif
-        
-        if let errorDescription = error["error"] as? String
-        {
-            os_log("Error making http request: %@", errorDescription)
-        }
-        }) {
+    private func executeHTTPRequest(request: URLRequest, xmlCompletion:(([[String:Any]])->Void)? = nil, completion:@escaping (_ result:Any, _ error:String?) -> Void) {
         let session = URLSession.shared
         
         let task = session.dataTask(with: request, completionHandler: {data, response, error -> Void in
@@ -82,7 +73,7 @@ class Requester: NSObject {
             {
                 do{
                     let json = try JSONSerialization.jsonObject(with: data!, options: [])
-                    completion(json)
+                    completion(json, nil)
                 }
                 catch
                 {
@@ -90,7 +81,9 @@ class Requester: NSObject {
                     let parser = XMLParser(data: data!)
                     
                     parser.delegate = self
-                    self.xmlCompletion = completion
+                    if let comp = xmlCompletion{
+                        self.xmlCompletion = comp
+                    }
                     xmlSuccess = parser.parse()
                     
                     if (xmlSuccess){
@@ -99,28 +92,26 @@ class Requester: NSObject {
                     
                     if let dataString = String(data:data!, encoding:.utf8), xmlSuccess == false
                     {
-                        completion(["string":dataString])
+                        completion(["string":dataString], nil)
                     }
                     else
                     {
-                        errorHandler(["error": "Failed with json serialization"])
+                        completion("Failed with json serialization: \(error.localizedDescription)", nil)
                         os_log("%@: Error serializing json: %@, Trying as string.", self.description, error.localizedDescription)
-                        
-                        errorHandler(["error": error.localizedDescription])
                     }
                 }
                 //completion(data!)
             }
             else if (error != nil)
             {
-                errorHandler(["error":error.debugDescription])
+                completion(error?.localizedDescription, nil)
                 #if DEBUG
                     os_log("%@: Error: %@", self.description, error.debugDescription)
                 #endif
             }
             else
             {
-                completion(["Result":"No response"])
+                completion("Result is nil", nil)
             }
         })
         task.resume()

@@ -124,7 +124,7 @@ public class MyAnimeList: NSObject {
     }
     
     public func seasonalAnime(season:Int, completion:@escaping (_ anime:[String:Any]) -> Void){
-        self.searchMAL(query: "enddate=00000000&format=json", completion: completion)
+        self.searchMAL(query: "Not yet aired", completion: completion)
     }
     
     private func jsonToXML(json:[String:Any]) -> String{

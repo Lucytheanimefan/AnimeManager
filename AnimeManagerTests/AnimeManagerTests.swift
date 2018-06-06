@@ -13,7 +13,7 @@ import os.log
 class AnimeManagerTests: XCTestCase {
     
     var ani:AniList!
-    let MAL = MyAnimeList(username: "Silent_Muse", password: "")
+    let MAL = MyAnimeList(username: "Silent_Muse", password: "pink99")
     
     override func setUp() {
         super.setUp()
@@ -180,13 +180,25 @@ class AnimeManagerTests: XCTestCase {
 //
 //    }
     
-    func testSeasonalAnimeAniList(){
-        let expect = expectation(description: "AniList Seasonal anime")
-        ani.anime(for: "winter") { (anime) in
-            os_log("%@: Anime: %@", self.description, anime)
+//    func testSeasonalAnimeAniList(){
+//        let expect = expectation(description: "AniList Seasonal anime")
+//        ani.anime(for: "winter") { (anime) in
+//            os_log("%@: Anime: %@", self.description, anime)
+//            expect.fulfill()
+//        }
+//        waitForExpectations(timeout: 60) { (error) in
+//            os_log("Failed HTTP Request with error: %@",  type: .error, error.debugDescription)
+//        }
+//    }
+    
+    func testMALSeasonalAnime(){
+        let expect = expectation(description: "MAL seasonal anime")
+        MAL.seasonalAnime(season: 0) { (result) in
+            os_log("%@: Anime: %@", self.description, result)
             expect.fulfill()
         }
-        waitForExpectations(timeout: 60) { (error) in
+        
+        waitForExpectations(timeout: 30) { (error) in
             os_log("Failed HTTP Request with error: %@",  type: .error, error.debugDescription)
         }
     }
