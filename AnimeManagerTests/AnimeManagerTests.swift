@@ -25,20 +25,20 @@ class AnimeManagerTests: XCTestCase {
         super.tearDown()
     }
     
-//    func testMAL(){
-//        let expect = expectation(description: "MAL List")
-//        let aniList = MyAnimeList(username: "Silent_Muse", password: nil)
-//        aniList.getAnimeList(status: .all, completion: { (data) in
-//            expect.fulfill()
-//        }) { (error) in
-//            print(error)
-//            //expect.fulfill()
-//        }
-//        waitForExpectations(timeout: 10) { (error) in
-//            os_log("Failed HTTP Request with error: %@", error.debugDescription)
-//        }
-//    }
-//
+    func testMAL(){
+        let expect = expectation(description: "MAL List")
+        let aniList = MyAnimeList(username: "Silent_Muse", password: nil)
+        aniList.getAnimeList(status: .all) { (data) in
+            print(data)
+            expect.fulfill()
+        }
+        
+        waitForExpectations(timeout: .infinity) { (error) in
+            os_log("Failed HTTP Request with error: %@", error.debugDescription)
+     
+        }
+    }
+
 //    func testDroppedShows(){
 //        let expect = expectation(description: "MAL List")
 //        let aniList = MyAnimeList(username: "Silent_Muse", password: nil)
@@ -130,17 +130,17 @@ class AnimeManagerTests: XCTestCase {
 //        }
 //    }
 //
-    func testANNAllArticles(){
-        let expect = expectation(description: "ANN Articles")
-        AnimeNewsNetwork.sharedInstance.allArticles(articleType: AnimeNewsNetwork.ANNArticle.Views.editorial) { (articles) in
-            os_log("%@: Editorial articles: %@", self.description, articles)
-            expect.fulfill()
-        }
-
-        waitForExpectations(timeout: 60) { (error) in
-            os_log("Failed HTTP Request with error: %@", type: .error, error.debugDescription)
-        }
-    }
+//    func testANNAllArticles(){
+//        let expect = expectation(description: "ANN Articles")
+//        AnimeNewsNetwork.sharedInstance.allArticles(articleType: AnimeNewsNetwork.ANNArticle.Views.editorial) { (articles) in
+//            os_log("%@: Editorial articles: %@", self.description, articles)
+//            expect.fulfill()
+//        }
+//
+//        waitForExpectations(timeout: 60) { (error) in
+//            os_log("Failed HTTP Request with error: %@", type: .error, error.debugDescription)
+//        }
+//    }
 //
 //    func testANNReport(){
 //        let expect = expectation(description: "ANN Articles")
@@ -191,17 +191,17 @@ class AnimeManagerTests: XCTestCase {
 //        }
 //    }
     
-    func testMALSeasonalAnime(){
-        let expect = expectation(description: "MAL seasonal anime")
-        MAL.seasonalAnime(season: 0) { (result) in
-            os_log("%@: Anime: %@", self.description, result)
-            expect.fulfill()
-        }
-        
-        waitForExpectations(timeout: 30) { (error) in
-            os_log("Failed HTTP Request with error: %@",  type: .error, error.debugDescription)
-        }
-    }
+//    func testMALSeasonalAnime(){
+//        let expect = expectation(description: "MAL seasonal anime")
+//        MAL.seasonalAnime(season: 0) { (result) in
+//            os_log("%@: Anime: %@", self.description, result)
+//            expect.fulfill()
+//        }
+//
+//        waitForExpectations(timeout: 30) { (error) in
+//            os_log("Failed HTTP Request with error: %@",  type: .error, error.debugDescription)
+//        }
+//    }
     
     
 }

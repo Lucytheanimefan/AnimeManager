@@ -12,8 +12,16 @@ import os.log
 public class Kitsu: NSObject {
     
     static let baseURL = "https://kitsu.io/api/edge/"
+    static let oauthURL = "https://kitsu.io/api/oauth/"
     
     let baseHeaders = ["Accept":"application/vnd.api+json", "Content-Type":"application/vnd.api+json"]
+    
+    var clientID:String!
+    var clientSecret:String!
+    init(clientID:String, clientSecret:String) {
+        self.clientID = clientID
+        self.clientSecret = clientSecret
+    }
     
     public func search(attribute:String, value:String, completion:@escaping (_ error:String?, _ result:[String:Any]?) -> Void){
         let url = Kitsu.baseURL + "anime?filter[" + attribute + "]=" + value.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
@@ -31,12 +39,12 @@ public class Kitsu: NSObject {
        
     }
     
-    public func beginOauth(clientId:String, clientSecret:String){
-        
-    }
-    
-    public func finishOauth(authToken:String){
-        
+    public func accessToken()->String{
+        let body = ["username":"", "password":"", "grant_type":"password"]
+        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: Kitsu.oauthURL + "token", body: body, headers: nil) { (data, error) in
+            
+        }
+        return ""
     }
 
 

@@ -85,6 +85,7 @@ public class MyAnimeList: NSObject {
         Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, headers: ["Authorization":self.authHeader!], completion: { (result, error) in
             
             guard error == nil else {
+                print(error)
                 return
             }
             
