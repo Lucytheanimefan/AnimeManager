@@ -28,21 +28,20 @@ public class CustomAnimeServer: NSObject {
     // Body: title, anime_id, review
     public func addReview(title:String, animeID:String, review:String, completion:@escaping (_ response:String) -> Void){
         let body = ["title":title, "anime_id":animeID, "review":review]
-        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: "\(baseURL)addReview", body: body, headers: nil, completion: completion as! (Any) -> Void, errorHandler: { (error) in
-            os_log("%@: Error: %@", self.description, error)
-        })
+        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: "\(baseURL)addReview", body: body, headers: nil) { (data, error) in
+            if let error = error{
+                os_log("%@: Error: %@", self.description, error)
+            }
+        }
     }
     
     public func updateReview(title:String, animeID:String, review:String, completion:@escaping (_ response:String) -> Void, errorcompletion:@escaping () -> Void){
         let body = ["title":title, "anime_id":animeID, "review":review]
-        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: "\(baseURL)updateReview", body: body, headers: self.headers, completion: {(response) in
+        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: "\(baseURL)updateReview", body: body, headers: self.headers) {(response, error) in
             if let resp = response as? [String:Any], let res = resp["string"] as? String{
                 completion(res)
             }
-        }, errorHandler: { (error) in
-            os_log("%@: Error: %@", self.description, error)
-            errorcompletion()
-        })
+        }
     }
     
     public func getReview(animeID:String? ,completion:@escaping (_ response:[[String:Any]]) -> Void){
@@ -51,7 +50,7 @@ public class CustomAnimeServer: NSObject {
         {
             url.append("?anime_id=\(animeID!)")
         }
-        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, headers: self.headers, completion: { (data) in
+        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, headers: self.headers) { (data, error) in
             //print(data)
             if let json = data as? [String:Any]
             {
@@ -85,8 +84,6 @@ public class CustomAnimeServer: NSObject {
                     //completion(resp)
                 }
             }
-        }) { (error) in
-            os_log("%@: Error: %@", self.description, error)
         }
     }
 

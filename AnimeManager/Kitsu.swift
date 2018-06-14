@@ -17,19 +17,18 @@ public class Kitsu: NSObject {
     
     public func search(attribute:String, value:String, completion:@escaping (_ error:String?, _ result:[String:Any]?) -> Void){
         let url = Kitsu.baseURL + "anime?filter[" + attribute + "]=" + value.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, headers: self.baseHeaders, completion: { (data) in
+        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: url, body: nil, headers: self.baseHeaders) { (data, error) in
             if let json = data as? [String:Any]{
                 completion(nil, json)
             }
             else
             {
                 os_log("%@: NOT JSON FORMAT", self.description)
-
+                
                 completion("NOT JSON FORMAT", nil)
             }
-        }) { (error) in
-            print(error)
         }
+       
     }
     
     public func beginOauth(clientId:String, clientSecret:String){

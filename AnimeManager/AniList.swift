@@ -57,7 +57,7 @@ class AniList: NSObject {
             return
         }
         let body = "grant_type=client_credentials&client_id=" + clientID + "&client_secret=" + clientSecret
-        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: AniList.baseURL + authEndpoint, body: body.data(using: .utf8), headers: /*self.headers*/nil, completion: { (data) in
+        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: AniList.baseURL + authEndpoint, body: body.data(using: .utf8), headers: /*self.headers*/nil) { (data, error) in
             
             
             if let json = data as? [String:Any]
@@ -73,8 +73,6 @@ class AniList: NSObject {
                     os_log("%@: Error: %@ with message: %@", type: .error, error, message)
                 }
             }
-        }) { (error) in
-            os_log("%@: Error", log: .default, type: .error, self.description, error)
         }
     }
     
@@ -86,26 +84,22 @@ class AniList: NSObject {
         }
         
         let url = AniList.baseURL + "user/\(self.clientID!)\(self.auth)"
-        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: url, body: nil, headers: self.headers, completion: { (data) in
+        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: url, body: nil, headers: self.headers) { (data, error) in
             if let json = data as? [String:Any]
             {
                 os_log("%@: Returned data: %@", self.description, json)
                 completion(json)
             }
-        }) { (error) in
-            os_log("%@: Error", log: .default, type: .error, self.description, error)
         }
     }
     
     public func anime(for season:String, completion:@escaping (_ anime:[String:Any]) -> Void){
         let url = AniList.baseURL
         let body = ["season":season]
-        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: url, body: body, headers: self.headers, completion: { (data) in
+        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: url, body: body, headers: self.headers) { (data, error) in
             if let json = data as? [String:Any]{
                 completion(json)
             }
-        }) { (error) in
-            os_log("%@: Error", log: .default, type: .error, self.description, error)
         }
     }
     

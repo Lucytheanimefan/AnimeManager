@@ -130,17 +130,17 @@ class AnimeManagerTests: XCTestCase {
 //        }
 //    }
 //
-//    func testANNAllArticles(){
-//        let expect = expectation(description: "ANN Articles")
-//        AnimeNewsNetwork.sharedInstance.allArticles(articleType: AnimeNewsNetwork.ANNArticle.Views.editorial) { (articles) in
-//            os_log("%@: Editorial articles: %@", self.description, articles)
-//            expect.fulfill()
-//        }
-//
-//        waitForExpectations(timeout: 60) { (error) in
-//            os_log("Failed HTTP Request with error: %@", type: .error, error.debugDescription)
-//        }
-//    }
+    func testANNAllArticles(){
+        let expect = expectation(description: "ANN Articles")
+        AnimeNewsNetwork.sharedInstance.allArticles(articleType: AnimeNewsNetwork.ANNArticle.Views.editorial) { (articles) in
+            os_log("%@: Editorial articles: %@", self.description, articles)
+            expect.fulfill()
+        }
+
+        waitForExpectations(timeout: 60) { (error) in
+            os_log("Failed HTTP Request with error: %@", type: .error, error.debugDescription)
+        }
+    }
 //
 //    func testANNReport(){
 //        let expect = expectation(description: "ANN Articles")

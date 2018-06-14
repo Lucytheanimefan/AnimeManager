@@ -68,23 +68,19 @@ public class AnimeNewsNetwork: NSObject {
     
     public func allArticles(articleType: String, completion:@escaping (_ articles:[[String:Any]]) -> Void)
     {
-        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: AnimeNewsNetwork.baseURL + articleType + AnimeNewsNetwork.allArticlesEndpoint, body: nil, headers: nil, completion: { data in
+        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: AnimeNewsNetwork.baseURL + articleType + AnimeNewsNetwork.allArticlesEndpoint, body: nil, headers: nil) { (data, error) in
             if let articles = data as? [[String:Any]]{
                 completion(articles)
             }
-        }) { (error) in
-            os_log("%@: Error with HTTP request: %@", log: .default, type: .error, self.description, error.debugDescription)
         }
     }
     
     public func generatedReports(key:ANNKey, completion:@escaping (_ articles:[[String:Any]]) -> Void){
-        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: AnimeNewsNetwork.baseURL + AnimeNewsNetwork.reportsEndpoint + String(key.rawValue), body: nil, headers: nil, completion: { (data) in
+        Requester.sharedInstance.makeHTTPRequest(method: "GET", url: AnimeNewsNetwork.baseURL + AnimeNewsNetwork.reportsEndpoint + String(key.rawValue), body: nil, headers: nil){ (data, error) in
             if let report = data as? [[String:Any]]
             {
                 completion(report)
             }
-        }) { (error) in
-            os_log("%@: Error with HTTP request: %@", log: .default, type: .error, self.description, error.debugDescription)
         }
     }
     

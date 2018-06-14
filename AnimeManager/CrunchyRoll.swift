@@ -26,7 +26,7 @@ public class CrunchyRoll: NSObject {
     
     public func login(username:String, password:String, completion:@escaping (_ result:[String:Any]) -> Void){
         let body:[String:String] = ["account":username, "password":password, "version":CrunchyRoll.APIVersion, "locale":CrunchyRoll.defaultLocale]
-        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: baseURL(param: "login"), body: body, headers: self.headers, completion: { (data) in
+        Requester.sharedInstance.makeHTTPRequest(method: "POST", url: baseURL(param: "login"), body: body, headers: self.headers) { (data, error) in
             //print(data)
             if let json = data as? [String:Any]{
                 if let errorCode = json["error"] as? Int{
@@ -40,8 +40,6 @@ public class CrunchyRoll: NSObject {
                     completion(json)
                 }
             }
-        }) { (error) in
-            print(error)
         }
     }
     
